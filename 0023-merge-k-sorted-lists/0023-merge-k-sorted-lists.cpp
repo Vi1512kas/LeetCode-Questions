@@ -8,46 +8,29 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+class cmp{
+    public:
+    bool operator()(const ListNode* l1,ListNode* l2){
+        return l1->val>l2->val;
+    }
+};
 class Solution {
 public:
-
-ListNode* merge(ListNode* list1, ListNode* list2) {
-	ListNode* temp1 = list1;
-	ListNode* temp2 = list2;
-	ListNode* c = new ListNode(100);
-    ListNode* temp3=c;
-	while (temp1 != NULL && temp2 != NULL) {
-		if (temp1->val <= temp2->val) {
-			temp3->next = temp1;
-			temp3 = temp1;
-			temp1 = temp1->next;
-		}
-		else {
-			temp3->next = temp2;
-			temp3 = temp2;
-			temp2 = temp2->next;
-		}
-
-	}
-	if (temp1 != NULL) {
-		temp3->next = temp1;
-	}
-	else {
-		temp3->next = temp2;
-	}
-    return c->next;
-}
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if(lists.size()==0) return NULL;
-        while(lists.size()>1){
-            ListNode* a =lists[0];
-            lists.erase(lists.begin());
-            // here pop 2 from front and merge and push piche.
-            ListNode* b =lists[0];
-             lists.erase(lists.begin());
-            ListNode* c =merge(a,b);
-            lists.push_back(c);
+        priority_queue<ListNode*,vector<ListNode*>,cmp>pq;
+        for(int i=0;i<lists.size();i++){
+            if(lists[i]==NULL) continue;
+            pq.push(lists[i]);
         }
-        return lists[0];
+        ListNode* node = new ListNode(100);
+        ListNode* ptr=node;
+        while(!pq.empty()){
+            ListNode* curr=pq.top();
+            pq.pop();
+            if(curr->next) pq.push(curr->next);
+            ptr->next=curr;
+            ptr = curr;
+        }
+        return node->next;
     }
 };
