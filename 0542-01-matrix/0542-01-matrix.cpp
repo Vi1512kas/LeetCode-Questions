@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // we are doing multisource dfs from all zeroes.
     vector<vector<int>> newMatrix;
     vector<vector<int>> dir = {{1,0},{-1,0},{0,1},{0,-1}};
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
