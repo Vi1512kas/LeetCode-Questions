@@ -1,21 +1,20 @@
 class Solution {
 public:
     int halveArray(vector<int>& nums) {
-        priority_queue<double> pq;
-        double ts,rs;
-        for(int i=0;i<nums.size();i++){
-            ts+=nums[i];
-            pq.push(nums[i]*1.0); // convert to double.
+        double sum=0;
+        for(auto it:nums){
+            sum+=it;
         }
-        rs=ts/2;
-        int count=0;
-        while(ts>rs){
-            double temp=pq.top();
-            pq.pop();
-            ts-=(temp/2);
-            pq.push(temp/2);
-            count++;
+        double s = sum/2.0;
+        int ans=0;
+        priority_queue<double> pq(nums.begin(),nums.end());
+        while(sum>s){
+        double ele = pq.top();
+        pq.pop();
+        pq.push(ele/2.0);
+        sum-=(ele/2.0);ans++;
         }
-        return count;
+        return ans;
+        
     }
 };
