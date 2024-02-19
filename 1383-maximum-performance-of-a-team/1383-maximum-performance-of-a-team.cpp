@@ -1,6 +1,7 @@
 #define pp pair<long long int,long long int> 
 class Solution {
 public:
+    // here push speed and perfoemence as pair, and choose min speed and replace  with new speed.
     int maxPerformance(int n, vector<int>& speed, vector<int>& efficiency, int k) {
         vector<pp> v;
         for(int i=0;i<n;i++){
@@ -19,8 +20,6 @@ public:
             ts+=v[i].second;
             ans = max(ans,ts*v[i].first);
         }
-        return (ans%int(1000000007));
-        
-        
+        return (ans%int(1000000007)); 
     }
 };
