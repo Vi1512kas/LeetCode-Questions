@@ -1,16 +1,14 @@
 class Solution {
 public:
-    int rob(vector<int>& nums) {
-         int n=nums.size();
-    
-    vector<int> dp(n,-1);
-    dp[0] = nums[0];
-    for(int i=1;i<n;i++){
-            int lena = nums[i];
-            if(i>1) lena+=dp[i-2];
-            int notlena = dp[i-1];
-            dp[i] = max(lena,notlena);
+    vector<int> dp;
+    int ftb(int i,vector<int> array){
+      if(i==array.size()-1) return array[i];
+      if(i==array.size()-2) return max(array[i],array[i+1]);
+      if(dp[i]!=-1) return dp[i];
+      return dp[i] = max(ftb(i+1,array),array[i]+ftb(i+2,array));
     }
-        return dp[n-1];
+    int rob(vector<int>& nums) {
+        dp.resize(nums.size()+1,-1);
+        return ftb(0,nums);
     }
 };
